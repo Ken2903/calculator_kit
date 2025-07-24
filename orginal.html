@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>iPhone Calculator UI</title>
+  <style>
+body {
+  background: #181818;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.calculator-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 145px 20px 20px 20px;
+  box-sizing: border-box;
+}
+
+.calculator {
+  background: #222;
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  padding: 24px 16px 32px 16px;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.calculator-display {
+  background: #111;
+  color: #fff;
+  font-size: clamp(2rem, 8vw, 2.5rem);
+  border-radius: 16px;
+  padding: 24px 16px;
+  text-align: right;
+  min-height: 48px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  overflow-x: auto;
+  word-wrap: break-word;
+  line-height: 1.2;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 12px;
+  min-height: 400px;
+}
+
+.btn {
+  border: none;
+  border-radius: 50%;
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
+  background: #333;
+  color: #fff;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  width: 100%;
+  height: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn:active {
+  background: #444;
+  transform: scale(0.95);
+}
+
+.btn.function {
+  background: #a5a5a5;
+  color: #222;
+}
+
+.btn.function:active {
+  background: #b5b5b5;
+}
+
+.btn.operator {
+  background: #ff9500;
+  color: #fff;
+}
+
+.btn.operator:active {
+  background: #ffaa33;
+}
+
+.btn.equals {
+  background: #ff9500;
+  color: #fff;
+  grid-column: 4;
+  grid-row: 5;
+  border-radius: 50%;
+}
+
+.btn.equals:active {
+  background: #ffaa33;
+}
+
+.btn.zero {
+  grid-column: 1 / span 2;
+  border-radius: 28px;
+  justify-content: flex-start;
+  padding-left: 32px;
+}
+
+.button-float-container {
+  position: fixed;
+  top: calc(32px + env(safe-area-inset-top, 0px));
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  pointer-events: none;
+}
+.button-float-container button {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  line-height: 1;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #444;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  margin: 0;
+  padding: 0;
+}
+#reset-btn {
+  background: #666;
+}
+#shuffle-btn:active, #reset-btn:active {
+  transform: scale(0.9);
+  background: #555;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: 10px;
+    padding-top: 120px;
+  }
+  
+  .calculator {
+    padding: 20px 12px 24px 12px;
+    border-radius: 24px;
+  }
+  
+  .calculator-display {
+    font-size: 1.8rem;
+    padding: 20px 12px;
+    border-radius: 12px;
+  }
+  
+  .calculator-buttons {
+    gap: 8px;
+    min-height: 350px;
+  }
+  
+  .btn {
+    min-height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  .button-float-container {
+    top: calc(18px + env(safe-area-inset-top, 0px));
+    right: calc(10px + env(safe-area-inset-right, 0px));
+    gap: 12px;
+  }
+  
+  #shuffle-btn, #reset-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .calculator-container {
+    padding-top: 100px;
+  }
+  .calculator {
+    padding: 16px 8px 20px 8px;
+  }
+  
+  .calculator-display {
+    font-size: 1.5rem;
+    padding: 16px 8px;
+  }
+  
+  .calculator-buttons {
+    gap: 6px;
+    min-height: 300px;
+  }
+  
+  .btn {
+    min-height: 45px;
+    font-size: 1.1rem;
+  }
+  
+  .btn.zero {
+    padding-left: 24px;
+  }
+  
+  .button-float-container {
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    right: calc(4px + env(safe-area-inset-right, 0px));
+    gap: 8px;
+  }
+  
+  #shuffle-btn, #reset-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .calculator-container {
+    padding: 10px;
+  }
+  
+  .calculator {
+    padding: 16px 12px 20px 12px;
+    max-width: 400px;
+  }
+  
+  .calculator-buttons {
+    min-height: 250px;
+  }
+  
+  .btn {
+    min-height: 40px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .btn {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+  
+  #shuffle-btn, #reset-btn {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="button-float-container">
+    <button id="shuffle-btn" title="Shuffle Number Pad">🔀</button>
+    <button id="reset-btn" title="Reset Number Pad">↺</button>
+  </div>
+  <div class="calculator-container">
+    <div class="calculator">
+      <div class="calculator-display" id="display">0</div>
+      <div class="calculator-buttons">
+        <button class="btn function" onclick="clearDisplay()">AC</button>
+        <button class="btn function" onclick="toggleSign()">±</button>
+        <button class="btn function" onclick="percent()">%</button>
+        <button class="btn operator" onclick="appendOperator('/')">÷</button>
+        <button class="btn number" onclick="appendNumber('7')">7</button>
+        <button class="btn number" onclick="appendNumber('8')">8</button>
+        <button class="btn number" onclick="appendNumber('9')">9</button>
+        <button class="btn operator" onclick="appendOperator('*')">×</button>
+        <button class="btn number" onclick="appendNumber('4')">4</button>
+        <button class="btn number" onclick="appendNumber('5')">5</button>
+        <button class="btn number" onclick="appendNumber('6')">6</button>
+        <button class="btn operator" onclick="appendOperator('-')">−</button>
+        <button class="btn number" onclick="appendNumber('1')">1</button>
+        <button class="btn number" onclick="appendNumber('2')">2</button>
+        <button class="btn number" onclick="appendNumber('3')">3</button>
+        <button class="btn operator" onclick="appendOperator('+')">+</button>
+        <button class="btn number zero" onclick="appendNumber('0')">0</button>
+        <button class="btn number" onclick="appendDot()">.</button>
+        <button class="btn equals" onclick="calculate()">=</button>
+      </div>
+    </div>
+  </div>
+  <script>
+// JavaScript from static/script1.js
+let display = document.getElementById('display');
+let current = '0';
+let operator = null;
+let operand = null;
+let resetNext = false;
+
+function updateDisplay() {
+    display.textContent = current;
+}
+
+function appendNumber(num) {
+    if (current === '0' || resetNext) {
+        current = num;
+        resetNext = false;
+    } else {
+        current += num;
+    }
+    updateDisplay();
+}
+
+function appendDot() {
+    if (resetNext) {
+        current = '0.';
+        resetNext = false;
+    } else if (!current.includes('.')) {
+        current += '.';
+    }
+    updateDisplay();
+}
+
+function clearDisplay() {
+    current = '0';
+    operator = null;
+    operand = null;
+    resetNext = false;
+    updateDisplay();
+}
+
+function appendOperator(op) {
+    if (operator && !resetNext) {
+        calculate();
+    }
+    operand = parseFloat(current);
+    operator = op;
+    resetNext = true;
+}
+
+function percent() {
+    current = (parseFloat(current) / 100).toString();
+    updateDisplay();
+}
+
+function toggleSign() {
+    if (current !== '0' && current !== 'Error') {
+        current = (parseFloat(current) * -1).toString();
+        updateDisplay();
+    }
+}
+
+function buildExpression() {
+    if (operator && operand !== null) {
+        return operand + operator + current;
+    } else {
+        return current;
+    }
+}
+
+function calculate() {
+    // For demo: use eval (not safe for production)
+    let expression = buildExpression().replace('÷', '/').replace('×', '*').replace('−', '-');
+    try {
+        let result = eval(expression);
+        current = result.toString();
+        operator = null;
+        operand = null;
+        resetNext = true;
+        updateDisplay();
+    } catch (e) {
+        current = 'Error';
+        updateDisplay();
+    }
+}
+
+// Optional: Keyboard support
+window.addEventListener('keydown', function(e) {
+    if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
+    if (e.key === '.') appendDot();
+    if (e.key === '+') appendOperator('+');
+    if (e.key === '-') appendOperator('-');
+    if (e.key === '*' || e.key === 'x') appendOperator('*');
+    if (e.key === '/') appendOperator('/');
+    if (e.key === 'Enter' || e.key === '=') calculate();
+    if (e.key === 'Escape') clearDisplay();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const shuffleBtn = document.getElementById('shuffle-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', shuffleNumberPad);
+    }
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetNumberPad);
+    }
+    // Store original order
+    storeOriginalOrder();
+});
+
+// Store the original order of number buttons
+let originalOrder = [];
+
+function storeOriginalOrder() {
+    const buttonsContainer = document.querySelector('.calculator-buttons');
+    if (!buttonsContainer) return;
+    const numberButtons = Array.from(buttonsContainer.querySelectorAll('.btn.number'));
+    originalOrder = numberButtons.map(btn => ({
+        text: btn.textContent.trim(),
+        onclick: btn.onclick
+    }));
+}
+
+function resetNumberPad() {
+    const buttonsContainer = document.querySelector('.calculator-buttons');
+    if (!buttonsContainer || originalOrder.length === 0) return;
+    const numberButtons = Array.from(buttonsContainer.querySelectorAll('.btn.number'));
+    // Restore original order
+    for (let i = 0; i < numberButtons.length; i++) {
+        numberButtons[i].textContent = originalOrder[i].text;
+        numberButtons[i].onclick = originalOrder[i].onclick;
+    }
+}
+
+function shuffleNumberPad() {
+    const buttonsContainer = document.querySelector('.calculator-buttons');
+    if (!buttonsContainer) return;
+    // Select all number buttons (including zero and dot)
+    const numberButtons = Array.from(buttonsContainer.querySelectorAll('.btn.number'));
+    // Save the zero and dot button separately to preserve their classes
+    const zeroBtn = numberButtons.find(btn => btn.textContent.trim() === '0');
+    const dotBtn = numberButtons.find(btn => btn.textContent.trim() === '.');
+    // Get only 1-9
+    const oneToNine = numberButtons.filter(btn => !['0', '.'].includes(btn.textContent.trim()));
+    // Shuffle 1-9
+    for (let i = oneToNine.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [oneToNine[i].textContent, oneToNine[j].textContent] = [oneToNine[j].textContent, oneToNine[i].textContent];
+        // Also update onclick
+        [oneToNine[i].onclick, oneToNine[j].onclick] = [oneToNine[j].onclick, oneToNine[i].onclick];
+    }
+    // Re-append in new order: functions, operators, then shuffled numbers
+    const allButtons = Array.from(buttonsContainer.children);
+    // Find indexes of number buttons (1-9)
+    let idx = 0;
+    for (let i = 0; i < allButtons.length; i++) {
+        if (allButtons[i].classList.contains('number') && !['0', '.'].includes(allButtons[i].textContent.trim())) {
+            allButtons[i].textContent = oneToNine[idx].textContent;
+            allButtons[i].onclick = oneToNine[idx].onclick;
+            idx++;
+        }
+    }
+} 
+  </script>
+</body>
+</html> 
