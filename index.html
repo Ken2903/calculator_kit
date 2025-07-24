@@ -6,7 +6,7 @@
   <title>iPhone Calculator UI</title>
   <style>
 body {
-  background: #181818;
+  background: #111;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@ body {
   border-radius: 16px;
   padding: 24px 16px;
   text-align: right;
-  min-height: 48px;
+  min-height: 83px;
   margin-bottom: 8px;
   letter-spacing: 1px;
   overflow-x: auto;
@@ -67,8 +67,8 @@ body {
 
 .btn {
   border: none;
-  border-radius: 50%;
-  font-size: clamp(1.2rem, 5vw, 1.5rem);
+  border-radius: 80%;
+  font-size: clamp(1.5rem, 6vw, 2rem);
   background: #333;
   color: #fff;
   transition: all 0.15s ease;
@@ -160,7 +160,7 @@ body {
   padding: 0;
 }
 #reset-btn {
-  background: #666;
+  background: #555;
 }
 #shuffle-btn:active, #reset-btn:active {
   transform: scale(0.9);
@@ -175,96 +175,143 @@ body {
   }
   
   .calculator {
-    padding: 20px 12px 24px 12px;
+    padding: 23px 12px 24px 10px;
     border-radius: 24px;
+    background-color: #111;
   }
   
   .calculator-display {
-    font-size: 1.8rem;
-    padding: 20px 12px;
+    font-size: 3.9rem;
+    padding: 20px 12px 10px 12px;
     border-radius: 12px;
   }
   
   .calculator-buttons {
-    gap: 8px;
+    gap: 8.5px;
     min-height: 350px;
   }
   
   .btn {
     min-height: 50px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
   
   .button-float-container {
     top: calc(18px + env(safe-area-inset-top, 0px));
     right: calc(10px + env(safe-area-inset-right, 0px));
-    gap: 12px;
+    gap: 15px;
   }
   
   #shuffle-btn, #reset-btn {
     width: 42px;
     height: 42px;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
   }
 }
 
 @media (max-width: 360px) {
   .calculator-container {
-    padding-top: 100px;
+    padding-top: 83px; /* 100 * 0.83 */
   }
   .calculator {
-    padding: 16px 8px 20px 8px;
+    padding: 13px 7px 20px 7px; /* 16 * 0.83, 8 * 0.83, 20, 8 * 0.83 */
   }
   
   .calculator-display {
-    font-size: 1.5rem;
-    padding: 16px 8px;
+    font-size: 1.25rem; /* 1.5 * 0.83 */
+    padding: 13px 7px; /* 16 * 0.83, 8 * 0.83 */
   }
   
   .calculator-buttons {
-    gap: 6px;
-    min-height: 300px;
+    gap: 5px; /* 6 * 0.83 */
+    min-height: 249px; /* 300 * 0.83 */
   }
   
   .btn {
-    min-height: 45px;
-    font-size: 1.1rem;
+    min-height: 37px; /* 45 * 0.83 */
+    font-size: 0.91rem; /* 1.1 * 0.83 */
   }
   
   .btn.zero {
-    padding-left: 24px;
+    padding-left: 20px; /* 24 * 0.83 */
   }
   
   .button-float-container {
-    top: calc(8px + env(safe-area-inset-top, 0px));
-    right: calc(4px + env(safe-area-inset-right, 0px));
-    gap: 8px;
+    top: calc(7px + env(safe-area-inset-top, 0px)); /* 8 * 0.83 */
+    right: calc(3px + env(safe-area-inset-right, 0px)); /* 4 * 0.83 */
+    gap: 6.6px; /* 8 * 0.83 */
   }
   
   #shuffle-btn, #reset-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 0.95rem;
+    width: 30px; /* 36 * 0.83 */
+    height: 30px;
+    font-size: 0.79rem; /* 0.95 * 0.83 */
   }
 }
 
 /* Landscape orientation */
 @media (max-height: 500px) and (orientation: landscape) {
   .calculator-container {
-    padding: 10px;
+    padding: 8px; /* 10 * 0.83 */
   }
   
   .calculator {
-    padding: 16px 12px 20px 12px;
-    max-width: 400px;
+    padding: 13px 10px 17px 10px; /* 16 * 0.83, 12 * 0.83, 20 * 0.83, 12 * 0.83 */
+    max-width: 332px; /* 400 * 0.83 */
   }
   
   .calculator-buttons {
-    min-height: 250px;
+    min-height: 208px; /* 250 * 0.83 */
   }
   
   .btn {
-    min-height: 40px;
+    min-height: 33px; /* 40 * 0.83 */
+  }
+}
+
+/* Larger screens */
+@media (min-width: 600px) {
+  .calculator-container {
+    padding: 174px 24px 24px 24px; /* 145 * 1.2, 20 * 1.2 */
+  }
+  .calculator {
+    padding: 29px 19px 38px 19px; /* 24 * 1.2, 16 * 1.2, 32 * 1.2, 16 * 1.2 */
+    border-radius: 38px; /* 32 * 1.2 */
+    max-width: 420px; /* 350 * 1.2 */
+  }
+  .calculator-display {
+    font-size: 3rem; /* 2.5 * 1.2 */
+    padding: 29px 19px; /* 24 * 1.2, 16 * 1.2 */
+    border-radius: 19px; /* 16 * 1.2 */
+    min-height: 100px; /* 83 * 1.2 */
+  }
+  .calculator-buttons {
+    gap: 14.4px; /* 12 * 1.2 */
+    min-height: 480px; /* 400 * 1.2 */
+  }
+  .btn {
+    min-height: 72px; /* 60 * 1.2 */
+    font-size: 2.4rem; /* 2 * 1.2 */
+    border-radius: 96%; /* 80% * 1.2, but keep as percent */
+  }
+  .btn.zero {
+    padding-left: 38px; /* 32 * 1.2 */
+    border-radius: 34px; /* 28 * 1.2 */
+  }
+  .button-float-container {
+    top: calc(38px + env(safe-area-inset-top, 0px)); /* 32 * 1.2 */
+    right: calc(29px + env(safe-area-inset-right, 0px)); /* 24 * 1.2 */
+    gap: 21.6px; /* 18 * 1.2 */
+  }
+  #shuffle-btn, #reset-btn {
+    width: 65px; /* 54 * 1.2 */
+    height: 65px;
+    font-size: 2.04rem; /* 1.7 * 1.2 */
+    border-radius: 60%; /* 50% * 1.2, but keep as percent */
   }
 }
 
@@ -311,169 +358,6 @@ body {
       </div>
     </div>
   </div>
-  <script>
-// JavaScript from static/script1.js
-let display = document.getElementById('display');
-let current = '0';
-let operator = null;
-let operand = null;
-let resetNext = false;
-
-function updateDisplay() {
-    display.textContent = current;
-}
-
-function appendNumber(num) {
-    if (current === '0' || resetNext) {
-        current = num;
-        resetNext = false;
-    } else {
-        current += num;
-    }
-    updateDisplay();
-}
-
-function appendDot() {
-    if (resetNext) {
-        current = '0.';
-        resetNext = false;
-    } else if (!current.includes('.')) {
-        current += '.';
-    }
-    updateDisplay();
-}
-
-function clearDisplay() {
-    current = '0';
-    operator = null;
-    operand = null;
-    resetNext = false;
-    updateDisplay();
-}
-
-function appendOperator(op) {
-    if (operator && !resetNext) {
-        calculate();
-    }
-    operand = parseFloat(current);
-    operator = op;
-    resetNext = true;
-}
-
-function percent() {
-    current = (parseFloat(current) / 100).toString();
-    updateDisplay();
-}
-
-function toggleSign() {
-    if (current !== '0' && current !== 'Error') {
-        current = (parseFloat(current) * -1).toString();
-        updateDisplay();
-    }
-}
-
-function buildExpression() {
-    if (operator && operand !== null) {
-        return operand + operator + current;
-    } else {
-        return current;
-    }
-}
-
-function calculate() {
-    // For demo: use eval (not safe for production)
-    let expression = buildExpression().replace('÷', '/').replace('×', '*').replace('−', '-');
-    try {
-        let result = eval(expression);
-        current = result.toString();
-        operator = null;
-        operand = null;
-        resetNext = true;
-        updateDisplay();
-    } catch (e) {
-        current = 'Error';
-        updateDisplay();
-    }
-}
-
-// Optional: Keyboard support
-window.addEventListener('keydown', function(e) {
-    if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
-    if (e.key === '.') appendDot();
-    if (e.key === '+') appendOperator('+');
-    if (e.key === '-') appendOperator('-');
-    if (e.key === '*' || e.key === 'x') appendOperator('*');
-    if (e.key === '/') appendOperator('/');
-    if (e.key === 'Enter' || e.key === '=') calculate();
-    if (e.key === 'Escape') clearDisplay();
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const shuffleBtn = document.getElementById('shuffle-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    if (shuffleBtn) {
-        shuffleBtn.addEventListener('click', shuffleNumberPad);
-    }
-    if (resetBtn) {
-        resetBtn.addEventListener('click', resetNumberPad);
-    }
-    // Store original order
-    storeOriginalOrder();
-});
-
-// Store the original order of number buttons
-let originalOrder = [];
-
-function storeOriginalOrder() {
-    const buttonsContainer = document.querySelector('.calculator-buttons');
-    if (!buttonsContainer) return;
-    const numberButtons = Array.from(buttonsContainer.querySelectorAll('.btn.number'));
-    originalOrder = numberButtons.map(btn => ({
-        text: btn.textContent.trim(),
-        onclick: btn.onclick
-    }));
-}
-
-function resetNumberPad() {
-    const buttonsContainer = document.querySelector('.calculator-buttons');
-    if (!buttonsContainer || originalOrder.length === 0) return;
-    const numberButtons = Array.from(buttonsContainer.querySelectorAll('.btn.number'));
-    // Restore original order
-    for (let i = 0; i < numberButtons.length; i++) {
-        numberButtons[i].textContent = originalOrder[i].text;
-        numberButtons[i].onclick = originalOrder[i].onclick;
-    }
-}
-
-function shuffleNumberPad() {
-    const buttonsContainer = document.querySelector('.calculator-buttons');
-    if (!buttonsContainer) return;
-    // Select all number buttons (including zero and dot)
-    const numberButtons = Array.from(buttonsContainer.querySelectorAll('.btn.number'));
-    // Save the zero and dot button separately to preserve their classes
-    const zeroBtn = numberButtons.find(btn => btn.textContent.trim() === '0');
-    const dotBtn = numberButtons.find(btn => btn.textContent.trim() === '.');
-    // Get only 1-9
-    const oneToNine = numberButtons.filter(btn => !['0', '.'].includes(btn.textContent.trim()));
-    // Shuffle 1-9
-    for (let i = oneToNine.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [oneToNine[i].textContent, oneToNine[j].textContent] = [oneToNine[j].textContent, oneToNine[i].textContent];
-        // Also update onclick
-        [oneToNine[i].onclick, oneToNine[j].onclick] = [oneToNine[j].onclick, oneToNine[i].onclick];
-    }
-    // Re-append in new order: functions, operators, then shuffled numbers
-    const allButtons = Array.from(buttonsContainer.children);
-    // Find indexes of number buttons (1-9)
-    let idx = 0;
-    for (let i = 0; i < allButtons.length; i++) {
-        if (allButtons[i].classList.contains('number') && !['0', '.'].includes(allButtons[i].textContent.trim())) {
-            allButtons[i].textContent = oneToNine[idx].textContent;
-            allButtons[i].onclick = oneToNine[idx].onclick;
-            idx++;
-        }
-    }
-} 
-  </script>
+  <script src="static/script1.js"></script>
 </body>
 </html> 
